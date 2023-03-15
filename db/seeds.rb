@@ -9,11 +9,11 @@ Opinion.destroy_all
 Match.destroy_all
 User.destroy_all
 
-user1 = User.create(username: 'Rob_blue',  age: 33, location: 'Brooklyn',favorite_club: 'Manchester City')
-user2 = User.create(username: 'Red4ever',  age: 23, location: 'St Louis',favorite_club: 'Liverpool')
-user3 = User.create(username: 'Oldtimer',  age: 55, location: 'Memphis',favorite_club: 'Everton')
-user4 = User.create(username: 'Olga',  age: 22, location: 'Chicago',favorite_club: 'Chelsea')
-user5 = User.create(username: 'Not_jessiemarsh',  age: 43, location: 'Los Angeles',favorite_club: 'Leeds United')
+user1 = User.create(username: 'Rob_blue', password_digest: 'goblue',  age: 33, location: 'Brooklyn',favorite_club: 'Manchester City')
+user2 = User.create(username: 'Red4ever', password_digest: 'goreds', age: 23, location: 'St Louis',favorite_club: 'Liverpool')
+user3 = User.create(username: 'Oldtimer', password_digest: 'hoping',  age: 55, location: 'Memphis',favorite_club: 'Everton')
+user4 = User.create(username: 'Olga', password_digest: 'letsgo',  age: 22, location: 'Chicago',favorite_club: 'Chelsea')
+user5 = User.create(username: 'Not_jessiemarsh', password_digest: 'goleeds',  age: 43, location: 'Los Angeles',favorite_club: 'Leeds United')
 
 match1 = Match.create(game: 1,home_team: "Chelsea", away_team: "Bournemouth", home_score: 2, away_score: 0)
 match2 = Match.create(game: 2,home_team: "Manchester United", away_team: "Nottingham", home_score: 3, away_score: 0)
