@@ -1,35 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from "react";
+// import { Route } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     fetch("/me").then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json().then((user) => setCurrentUser(user));
       }
     });
   }, []);
 
 
   return (
-    <div>
-    <div class="header">
-  <h2>Matchday Discussion</h2>
- 
-</div>
-
-<ul class="topnav">
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li class="right"><a href="#signup">Sign up</a></li>
-  <li class="right"><a href="#login">Log in</a></li>
-</ul>
-</div>
-  );
+    <>
+    { currentUser ? (
+      <AuthApp setCurrentUser={setCurrentUser} currentUser = {currentUser}/>
+    ) : (
+      <NonAuthApp setCurrentUser={setCurrentUser}/>
+    )
+  }
+  </>
+  )
 }
 
 export default App;
