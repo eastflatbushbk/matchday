@@ -1,7 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from "react";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch("/me").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+
   return (
     <div>
     <div class="header">
