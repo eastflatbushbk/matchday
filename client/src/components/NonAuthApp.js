@@ -6,6 +6,9 @@ function NonAuthApp({}) {
     <div>
         <NavBar />
        <Routes>
+       <Route exact path="/">
+                    <Login setCurrentUser={setCurrentUser} />
+                </Route>
            {/* <Route exact path="/teams" element={<TeamPage teams={teams} />} />
            <Route exact path="/add_team" element={<TeamForm onAddTeam={handleNewTeam}/>} />
            <Route exact path="/add_player" element={<NewPlayerForm />} />
