@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from "react";
-// import { Route } from "react-router-dom";
+import NonAuthApp from './components/NonAuthApp';
+import AuthApp from './components/AuthApp';
+ import { Route } from "react-router-dom";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -16,14 +18,16 @@ function App() {
 
 
   return (
-    <>
+
+    <Route>
     { currentUser ? (
       <AuthApp setCurrentUser={setCurrentUser} currentUser = {currentUser}/>
     ) : (
       <NonAuthApp setCurrentUser={setCurrentUser}/>
     )
   }
-  </>
+ 
+  </Route>
   )
 }
 

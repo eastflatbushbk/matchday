@@ -1,25 +1,27 @@
 class MatchesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
+     skip_before_action :confirm_authentication, only: [:index,:show]
 
     def index
+        # byebug
         render json: Match.all, status: :ok
     end
 
     def show
         match = find_match
-        render json: match, status: :ok
+        render json: match, include: :opinions, status: :ok
     end
 
     def create
-        plan = Match.create!(match_params)
-        user_match = UserMatch.create!(
+        match = Match.create!(match_params)
+        user_match = Match.create!(
             user_id: @current_user.id,
-            match_id: match.id
+            # match_id: match.id
         )
         render json: match, status: :created
     end
-
+  
     def update
         match = find_match
         match.update!(match_params)
@@ -39,7 +41,7 @@ class MatchesController < ApplicationController
     end
 
     def match_params
-        params.permit(:game, :comment, :home_team, :away_team, :home_score, :away_score, :hometeam_img_url, :awayteam_img_url)
+        params.permit(:game, :home_team, :away_team, :home_score, :away_score, :user_id, :hometeam_img_url, :awayteam_img_url)
     end
 
     def 

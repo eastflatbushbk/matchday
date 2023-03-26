@@ -5,7 +5,8 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.integer :age
       t.string :location
       t.string :favorite_club
-
+      t.string :password_digest
+      t.integer :match_id
       t.timestamps
     end
   end

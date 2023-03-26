@@ -15,7 +15,7 @@ const linkStyles = {
 function NavBar() {
   return (
     <div><NavLink
-    to="/teams"
+    to="/match"
     exact
     style={linkStyles}
     activeStyle={{
@@ -25,7 +25,7 @@ function NavBar() {
   Home
   </NavLink>
   <NavLink
-    to="/add_team"
+    to="/add_match"
     exact
     style={linkStyles}
     activeStyle={{
@@ -35,7 +35,7 @@ function NavBar() {
   Add New Team
   </NavLink>
   <NavLink
-    to="/about"
+    to="/my_comments"
     exact
     style={linkStyles}
     activeStyle={{
@@ -43,6 +43,26 @@ function NavBar() {
     }}
   >
   About
+  </NavLink>
+  <NavLink
+    to="/profile"
+    exact
+    style={linkStyles}
+    activeStyle={{
+      background: "yellow",
+    }}
+  >
+  Profile
+  </NavLink>
+  <NavLink
+    to="/logout"
+    exact
+    style={linkStyles}
+    activeStyle={{
+      background: "yellow",
+    }}
+  >
+  logout
   </NavLink>
   </div>
   )

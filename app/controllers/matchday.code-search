@@ -1,0 +1,23 @@
+# Query: matchday
+# ContextLines: 1
+
+4 results - 3 files
+
+app/serializers/match_serializer.rb:
+  1  class MatchSerializer < ActiveModel::Serializer
+  2:   attributes :id, :matchday, :home_team, :away_team, :home_score, :away_score
+  3  end
+
+db/migrate/20230313153412_create_matches.rb:
+   3      create_table :matches do |t|
+   4:       
+   5        t.string :home_team
+
+   9        t.integer :user_id
+  10:       t.integer :matchday
+  11        t.timestamps
+
+db/migrate/20230315140919_fix_column_name.rb:
+  2    def change
+  3:     rename_column :matches, :matchday, :game
+  4    end

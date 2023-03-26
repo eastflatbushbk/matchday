@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_17_220638) do
+ActiveRecord::Schema.define(version: 2023_03_13_154827) do
 
   create_table "matches", force: :cascade do |t|
     t.integer "game"
@@ -18,10 +18,11 @@ ActiveRecord::Schema.define(version: 2023_03_17_220638) do
     t.string "away_team"
     t.integer "home_score"
     t.integer "away_score"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.string "hometeam_img_url"
     t.string "awayteam_img_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "opinions", force: :cascade do |t|
@@ -39,9 +40,10 @@ ActiveRecord::Schema.define(version: 2023_03_17_220638) do
     t.integer "age"
     t.string "location"
     t.string "favorite_club"
+    t.string "password_digest"
+    t.integer "match_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "password_digest"
   end
 
   add_foreign_key "opinions", "matches"

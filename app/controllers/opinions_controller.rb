@@ -14,6 +14,11 @@ class OpinionsController < ApplicationController
     def create
         opinion = Opinion.create!(opinion_params)
         render json: opinion, status: :created
+    end 
+    def update
+        opinion = find_opinion
+        opinion.update!(opinion_params)
+        render json: opinion, status: :ok
     end
 
     def destroy
