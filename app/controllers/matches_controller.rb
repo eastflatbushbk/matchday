@@ -15,10 +15,10 @@ class MatchesController < ApplicationController
 
     def create
         match = Match.create!(match_params)
-        user_match = Match.create!(
-            user_id: @current_user.id,
-            # match_id: match.id
-        )
+        # user_match = Match.create!(
+        #     user_id: @current_user.id,
+        #     # match_id: match.id
+        # )
         render json: match, status: :created
     end
   
