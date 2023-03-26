@@ -23,15 +23,23 @@ class MatchesController < ApplicationController
     end
   
     def update
-        match = find_match
+         match = find_match
+        if match.user_id == current_user.id
         match.update!(match_params)
         render json: match, status: :ok
+        else
+         render json:{ error: "Not authorized" }, status: :unauthorized
+        end
     end
 
     def destroy
         match = find_match
+        if match.user_id == current_user.id
         match.destroy!
         head :no_content
+    else
+        render json:{ error: "Not authorized" }, status: :unauthorized
+       end
     end
 
     private 
