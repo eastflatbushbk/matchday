@@ -1,5 +1,6 @@
-import React from 'react'
-import { NavLink } from "react-router-dom";
+import React, { useContext } from 'react'
+import {  NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from './UserContext';
 
 
 const linkStyles = {
@@ -13,8 +14,28 @@ const linkStyles = {
   };
 
 function NavBar() {
-  return (
-    <div><NavLink
+
+ const {logoutUser, loggedIn, currentUser} = useContext(UserContext)
+ const navigate = useNavigate();
+
+  function handleLogout() {
+    fetch("/logout", {
+        method: "DELETE"
+    })
+    .then(resp => {
+        if (resp.ok) {
+          logoutUser()
+            navigate('/')
+          }
+    })
+}
+
+const navigationLinks = loggedIn ? (
+  <> 
+  <div >
+  {currentUser.username}
+  </div>
+<NavLink
     to="/match"
     exact
     style={linkStyles}
@@ -55,15 +76,40 @@ function NavBar() {
   Profile
   </NavLink>
   <NavLink
-    to="/logout"
+    onClick={handleLogout}
+    style={linkStyles}
+    activeStyle={{
+      background: "red",
+    }}
+  >
+  Logout
+  </NavLink>
+  
+  {/* <button type="button" style='float: right' onClick={handleLogout}>Logout</button> */}
+ 
+</>
+
+) : (
+  <>
+  <NavLink
+    to="/login"
     exact
     style={linkStyles}
     activeStyle={{
       background: "yellow",
     }}
   >
-  logout
+  login
   </NavLink>
+</>
+
+)
+
+
+
+  return (
+    <div>
+     {navigationLinks} 
   </div>
   )
 }
