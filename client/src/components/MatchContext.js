@@ -38,6 +38,8 @@ const MatchProvider = ({children}) => {
         setMatches(updatedMatches);
       }
 
+     
+
       
       return <MatchContext.Provider value={{ matches, postMatch, patchMatch, destroyMatch }}>{ children }</MatchContext.Provider>
       

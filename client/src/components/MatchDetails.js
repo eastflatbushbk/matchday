@@ -1,77 +1,34 @@
 import React, {  useContext, useState} from 'react'
 import {  useNavigate, useParams } from 'react-router-dom'
 import CommentCard from './CommentCard'
-// import { ErrorContext } from './ErrorContext';
+
 import { ErrorContext } from './ErrorContext';
 import { MatchContext } from './MatchContext';
+// import { OpinionContext } from './OpinionContext';
 import { UserContext } from './UserContext';
 
 
-// const defaultObj = {
-//         game: "",
-//         home_team: "",
-//         away_team: "",
-//         home_score: "",
-//         away_score: "",
-//         hometeam_img_url: "",
-//         awayteam_img_url: "",
-//         opinions: [],
-//         id: "",
-//         user_id: ""
 
-//      }
 
 function MatchDetails() {
-    // const [isLoaded, setIsLoaded] = useState(false);
-    //   const [errorMsg, setErrorMsg] = useState([])
-    // const [commentAdded , setCommentAdded] = useState(false)
-    // const [commentEdited , setCommentEdited] = useState(false)
-    // const [commentDeleted , setCommentDeleted] = useState(false)
+    
      const [newComment , setNewComment] = useState("")
     const {matches , destroyMatch, patchMatch} = useContext(MatchContext)
     const {currentUser} = useContext(UserContext)
+    // const {opinions, patchOpinion , destroyOpinion} = useContext(OpinionContext)
      const {setErrors} = useContext(ErrorContext)
 
 
-    // const location = useLocation();
-    // console.log(location.state)
     
     const navigate = useNavigate();
-    //  const matchId = useParams().id
+   
      const matchId = parseInt(useParams().id)
         //  console.log(matchId)
         //  console.log(matches)
 
         //   console.log(matches)
       const matchArr = matches.find(a => a.id === matchId)
-        //   console.log(matchArr)
-
-        // const  opinionatedMatch = [...matchArr.opinions, addedOpinions]
-    //      setComments(matchArr.opinions)
-    //      console.log(comments)
-
-    // useEffect(() => {
-    //     const id = location.state.id;
-    //     console.log(id)
-    //     // console.log(matchId)
-    //     fetch(`/matches/${id}`)
-    //     .then(resp => resp.json())
-    //     .then(matchData => {
-    //         console.log(matchData)
-    //         setMatchObj(matchData)
-            // setIsLoaded(!isLoaded)
-            // setComments(matchData.opinions)
-            // console.log(matchData.opinions)
-            // setIsLoaded(!isLoaded)
-            // checkIfUserCanEdit(tripData.users)
-    //     })
-    // },[commentAdded, commentEdited,commentDeleted])
-
-    
-
-    // function handleDelete(match_id){
-    //     deleteMatch(match_id)
-    // }
+          console.log(matchArr)
 
     function deleteMatch(matchId) {
         fetch(`/matches/${matchId}`, {
@@ -95,14 +52,16 @@ function MatchDetails() {
           function handleCommentSubmit(event) {
             event.preventDefault();
             console.log('comment submitted')
-           console.log(newComment)
+           console.log(newComment.comment)
            console.log(currentUser.username)
-           console.log(currentUser.user_id)
+
+           console.log(currentUser)
+           console.log(currentUser.id)
 
             const createOpinion = {
                 author: currentUser.username,
-                comment: newComment,
-                user_id: currentUser.user_id,
+                comment: newComment.comment,
+                user_id: currentUser.id,
                 match_id: matchId
                }
                 console.log(createOpinion)
@@ -121,14 +80,18 @@ function MatchDetails() {
           .then(resp => {
              if (resp.ok) {
                   resp.json().then(addedOpinion => {
-                       
-                       patchMatch({...matchArr.opinions, addedOpinion})
+                    console.log(addedOpinion)
+                      const newOpinions = [...matchArr.opinions, addedOpinion]
+                      console.log(newOpinions)
+                      const updatedMatch = {...matchArr, opinions: newOpinions}
+                      console.log(updatedMatch)
+                       patchMatch(updatedMatch)
                         setNewComment("")
-                    //    navigate('/match')
+                       // navigate('/match')
                   })
              } else {
                  resp.json().then(errors => {
-                      setErrors(errors.error)
+                      setErrors(errors.errors)
                  })
              }
           })
@@ -143,7 +106,7 @@ function MatchDetails() {
          navigate('/edit_match',{state:{id:id}})
     }
     
- const content = matchArr.opinions.map( com => <CommentCard key={com.id} com={com} />) 
+ const content = matchArr.opinions.map( com => <CommentCard key={com.id} com={com} matchArr={matchArr} />) 
 
  const displayButtons = currentUser.id === matchArr.user_id ? (<>
       <button type="button" onClick={() => handleEdit(matchArr.id)} class="btn btn-outline-secondary">edit match</button> 
@@ -189,13 +152,14 @@ function MatchDetails() {
     </div>
   </div> 
   </div>
-   
-  <form action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={handleCommentSubmit} >
-<textarea name="comment"  value={newComment.comment} onChange={handleChange} style={{width:"96%",height:"90px",padding:"2%",font:"1.4em/1.6em cursive", backgroundcolor:"gold", color:"green"}}>
-Hey... say something!
-</textarea>
-<button class="btn btn-primary" type="submit">submit</button>
-</form> 
+     <div>
+      <form action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={handleCommentSubmit} >
+      <textarea name="comment"  value={newComment.comment} onChange={handleChange} style={{width:"96%",height:"90px",padding:"2%",font:"1.4em/1.6em cursive", backgroundcolor:"gold", color:"green"}}>
+         Hey... say something!
+        </textarea>
+       <button class="btn btn-primary" type="submit">submit</button>
+      </form> 
+     </div> 
    <div>
     <li>
         {content}

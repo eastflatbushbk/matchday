@@ -15,7 +15,7 @@ const defaultData = {
     awayteam_img_url: ""
     }
 
-function EditMatchForm({loading}) {
+function EditMatchForm({authCheck}) {
 
     const [ modifiedMatch, setModifiedMatch ] = useState(defaultData)
     const {matches, patchMatch} = useContext(MatchContext)
@@ -29,12 +29,12 @@ function EditMatchForm({loading}) {
         console.log(id)
 
     useEffect(() => {
-        if(!loading && !loggedIn) {
+        if(!authCheck && !loggedIn) {
           navigate('/login')
         }
         const match = matches.find(match => match.id === parseInt(id))
        
-        if(!loading && currentUser.id !== match.user_id) {
+        if(!authCheck && currentUser.id !== match.user_id) {
             navigate('/match')
           }
          
@@ -48,7 +48,7 @@ function EditMatchForm({loading}) {
             awayteam_img_url: match.awayteam_img_url
           })
         
-      }, [matches, loading, loggedIn, currentUser, id, navigate])
+      }, [matches, authCheck, loggedIn, currentUser, id, navigate])
 
     function handleChange (event){
         setModifiedMatch({
@@ -74,6 +74,7 @@ function EditMatchForm({loading}) {
         .then(resp => {
            if (resp.ok) {
                 resp.json().then(editedMatch => {
+                    console.log(editedMatch)
                      patchMatch(editedMatch)
                      setModifiedMatch(defaultData)
                      navigate('/match')
@@ -199,7 +200,7 @@ function EditMatchForm({loading}) {
     
    </form>
    
-  {/* { errors.size > 0 ? errors.map(error => <p>{error}</p>) : null } */}
+  
     
   </div>
 

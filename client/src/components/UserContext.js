@@ -1,26 +1,17 @@
 import { createContext, useEffect, useState } from "react";
+ import { useNavigate } from "react-router-dom";
 
 
 const UserContext = createContext({})
 
-const UserProvider = ({setLoading, children}) => {
+const UserProvider = ({setAuthCheck, children}) => {
 
     const [users, setUsers] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState(null)
+     const navigate = useNavigate();
 
-    // useEffect(() =>{
-    //     fetch('/me')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         if(!data.errors) {
-    //             loginUser(data)
-    //         }else{
-    //             setLoading(false)
-    //         }
-    //     })
-    // },[setLoading])
-
+   
     useEffect(() => {
         fetch("/me").then((response) => {
           if (response.ok) {
@@ -31,10 +22,10 @@ const UserProvider = ({setLoading, children}) => {
           }
           else {
             // setAuthCheck(true)
-            setLoading(false)
+            setAuthCheck(false)
           }
         })
-      }, [setLoading]);
+      }, [setAuthCheck]);
 
     const loginUser = user => {
         setCurrentUser(user);
@@ -44,6 +35,9 @@ const UserProvider = ({setLoading, children}) => {
       const logoutUser = () => {
         setCurrentUser(null);
         setLoggedIn(false)
+        console.log("logoutuser")
+         navigate('/login')
+
       }
     
       const addUser = user => {
@@ -56,10 +50,10 @@ const UserProvider = ({setLoading, children}) => {
           .then(resp => resp.json())
           .then(data => {
             setUsers(data)
-            setLoading(false)
+            setAuthCheck(false)
           })
         }
-      }, [loggedIn, setLoading])
+      }, [loggedIn, setAuthCheck])
 
       return <UserContext.Provider value={{ users, loggedIn, currentUser, addUser, loginUser, logoutUser }}>{ children }</UserContext.Provider>
 }

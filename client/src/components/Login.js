@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ErrorContext } from './ErrorContext';
 import { UserContext } from './UserContext';
 
-function Login({  loading }) {
+function Login({  authCheck }) {
       const [password, setPassword] = useState("")
       const [username, setUsername] = useState("")
 
@@ -20,16 +20,15 @@ function Login({  loading }) {
       const navigate = useNavigate();
 
       useEffect(() => {
-        // code here is what happens on mount
-    
-        if(!loading && loggedIn) {
+           
+        if(!authCheck && loggedIn) {
           navigate('/match')
         }
         return () => {
-          // code here is what happens when the component is unmounting
+         
           setErrors([])
         }
-      }, [loading, loggedIn, navigate, setErrors])
+      }, [authCheck, loggedIn, navigate, setErrors])
 
       function handleLogInSubmit(event){
         event.preventDefault()
@@ -81,7 +80,7 @@ function Login({  loading }) {
               })
             } else {
               res.json().then(errors => {
-                setErrors(errors.errors)
+                setErrors(errors)
               })
             }
           })
@@ -157,26 +156,7 @@ function Login({  loading }) {
       </div>
    ) 
   return (
-//     <>
-//     <form action="/action_page.php" method="post" onSubmit={handleSubmit}>
-//     <div class="container">
-//     <label for="username"><b>Username</b></label>
-//     <input type="text" placeholder="Enter Username"  onChange={(e) => setUsername(e.target.value)} name="uname" required/>
-//     <label for="psw"><b>Password</b></label>
-//     <input type="password" placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)}  name="psw" required/>
-        
-//     <button type="submit">Login</button>
-    
-//      </div>
 
-//   <div class="container" style={{backgroundColor:"#f1f1f1"}}>
-//     <button type="button" class="cancelbtn" style={{float: "left"}}>Cancel</button>
-//     <button type="button" class="signbtn" style={{float: "right"}}>Sign in</button>
-   
-//   </div>
-// </form>
-
-// </>
 
 
 

@@ -15,7 +15,7 @@ const defaultData = {
     awayteam_img_url: ""
     }
 
-function MatchForm({loading}) {
+function MatchForm({authCheck}) {
 
     const [ newMatch, setNewMatch ] = useState(defaultData)
     const {postMatch} = useContext(MatchContext)
@@ -27,15 +27,14 @@ function MatchForm({loading}) {
 
     useEffect(() => {
 
-    if(!loading && !loggedIn) {
+    if(!authCheck && !loggedIn) {
         navigate('/login')
       }
-  
-      return () => {
-        // code here is what happens when the component is unmounting
+       return () => {
+       
         setErrors([])
       }
-    }, [loading, loggedIn, navigate, setErrors])
+    }, [authCheck, loggedIn, navigate, setErrors])
 
 
     function handleChange(event){
@@ -208,7 +207,7 @@ function MatchForm({loading}) {
     
    </form>
   
-  {/* { errors.size > 0 ? errors.map(error => <p>{error}</p>) : null } */}
+  
     
   </div>
   </div>
@@ -225,58 +224,3 @@ export default MatchForm
 
 
 
-
-//       <input class="form-control" type="text" value={newMatch.home_team} onChange={handleChange} placeholder="home team" aria-label="default input example"/>
-
-// <input class="form-control" type="text" value={newMatch.hometeam_img_url} onChange={handleChange} placeholder="home team img url" aria-label="default input example"/> 
-
-//   <input class="form-control" type="text" value={newMatch.away_team} onChange={handleChange} placeholder="away team" aria-label="default input example"/>
-
-//   <input class="form-control" type="text" value={newMatch.awayteam_img_url} onChange={handleChange} placeholder="away team img url" aria-label="default input example"/>
-
-
-
-
-// {/* <select class="form-select" aria-label="Default select example">
-//       <option selected="">select team</option>
-//       <option value="1">One</option>
-//       <option value="2">Two</option>
-//       <option value="3">Three</option>
-//     </select> */}
-
-
-
-
-// {/* <div>
-//     <form action="/action_page.php" method="post" >
-  
-
-//   <div class="container">
-//     <label for="game"><b>Game #</b></label>
-//     <input type="text" placeholder="Enter Game#"  name="game" required/>
-
-//     <label for="home_team"><b>home_team</b></label>
-//     <input type="text" placeholder="Enter home team"  name="home_team" required/>
-//     <label for="home_score"><b>home team score</b></label>
-//     <input type="text" placeholder="Enter home team score"  name="home_score" required/>
-//     <label for="hometeam_img_url"><b>hometeam img url</b></label>
-//     <input type="text" placeholder="Enter hometeam img url"  name="hometeam_img_url" required/>
-
-//     <label for="away_team"><b>away team</b></label>
-//     <input type="away_team" placeholder="Enter away team"   name="away_team" required/>
-//     <label for="away_team"><b>away score</b></label>
-//     <input type="away_score" placeholder="Enter away score"   name="away_score" required/>
-//     <label for="awayteam_img_url"><b>awayteam img url</b></label>
-//     <input type="awayteam_img_url" placeholder="awayteam img url"   name="awayteam_img_url" required/>
-        
-//     <button type="submit">Login</button>
-    
-//   </div>
-
-//   <div class="container" style={{backgroundColor:"#f1f1f1"}}>
-//     <button type="button" class="cancelbtn">Cancel</button>
-//     <button type="button" class="signbtn">Sign in</button>
-   
-//   </div>
-// </form>
-// </div> */}

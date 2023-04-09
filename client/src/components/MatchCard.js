@@ -52,5 +52,3 @@ export default MatchCard
 
 
 
-// {/* 
-//          { errorMsg.length > 0 ? errorMsg.map(error => <p>{error}</p>) : null } */}

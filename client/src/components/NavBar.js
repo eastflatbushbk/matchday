@@ -22,14 +22,13 @@ function NavBar() {
     fetch("/logout", {
         method: "DELETE"
     })
-    .then(resp => {
-        if (resp.ok) {
-          logoutUser()
-            navigate('/')
-          }
-    })
+     navigate('/login')
+     logoutUser()
+    
+               
 }
 
+console.log(loggedIn)
 const navigationLinks = loggedIn ? (
   <> 
   <div >
@@ -53,28 +52,10 @@ const navigationLinks = loggedIn ? (
       background: "yellow",
     }}
   >
-  Add New Team
+  Add New Match
   </NavLink>
-  <NavLink
-    to="/my_comments"
-    exact
-    style={linkStyles}
-    activeStyle={{
-      background: "yellow",
-    }}
-  >
-  About
-  </NavLink>
-  <NavLink
-    to="/profile"
-    exact
-    style={linkStyles}
-    activeStyle={{
-      background: "yellow",
-    }}
-  >
-  Profile
-  </NavLink>
+  
+  
   <NavLink
     onClick={handleLogout}
     style={linkStyles}
@@ -99,7 +80,7 @@ const navigationLinks = loggedIn ? (
       background: "yellow",
     }}
   >
-  login
+  please enter credentials
   </NavLink>
 </>
 

@@ -3,9 +3,11 @@ import { ErrorContext } from './ErrorContext'
 
 function Errors() {
     const {errors} = useContext(ErrorContext)
-    const displayErrors = errors.map((idx , error) => <li key={idx}>{error}</li>)
-  return (
-    <div>{displayErrors}</div>
+
+    const displayErrors = errors.map( (error, idx) => <li key={idx}>{error}</li>)
+  
+    return (
+    <ul>{displayErrors}</ul>
   )
 }
 
