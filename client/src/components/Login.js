@@ -14,21 +14,21 @@ function Login({  authCheck }) {
 
       const [login, setLogin] = useState(true)
 
-      const {setErrors} = useContext(ErrorContext)
+      const { errors, setErrors} = useContext(ErrorContext)
       const {addUser, loginUser, loggedIn} = useContext(UserContext)
 
       const navigate = useNavigate();
 
-      useEffect(() => {
+      // useEffect(() => {
            
-        if(!authCheck && loggedIn) {
-          navigate('/match')
-        }
-        return () => {
+      //   if(!authCheck && loggedIn) {
+      //     navigate('/match')
+      //   }
+      //   return () => {
          
-          setErrors([])
-        }
-      }, [authCheck, loggedIn, navigate, setErrors])
+      //     setErrors([])
+      //   }
+      // }, [authCheck, loggedIn, navigate, setErrors])
 
       function handleLogInSubmit(event){
         event.preventDefault()
@@ -46,12 +46,15 @@ function Login({  authCheck }) {
             if (res.ok) {
               res.json().then(user => {
                 loginUser(user)
-                setErrors([])
+                // setErrors([])
                 navigate('/match')
               })
             } else {
-              res.json().then(errors => {
-                setErrors(errors.errors)
+              res.json().then(err => {
+                
+                setErrors(err.errors)
+                 const displayErrors = err.errors
+               console.log(err.errors)
               })
             }
           })
@@ -60,31 +63,42 @@ function Login({  authCheck }) {
       function handleSignInSubmit(event){
         event.preventDefault()
 
-        console.log("sgn in submited")
+        console.log("sgn in submited") 
+        const createUser = {
+          username: username,
+          age: age,
+          location: location,
+          favorite_club: favorite,
+          password: password,
+          password_confirmation: confirmation
+         }
+        
 
         fetch('/users', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({username, password, age, location, favorite, confirmation})
+          body: JSON.stringify(createUser),
         })
-          .then(res => {
-            if (res.ok) {
-              res.json().then(user => {
+        .then((res) => res.json())
+        .then((user) => {
+          if (!user.errors) {
                 addUser(user)
                 loginUser(user)
                 setLogin(true)
                 navigate('/match')
                 
-              })
+              // })
             } else {
-              res.json().then(errors => {
-                setErrors(errors)
-              })
+              // res.json().then(user => {
+                const displayErrors = user.errors.map( (error, idx) => <li key={idx}>{error}</li>)
+                 setErrors(displayErrors)
+                console.log(user)
+              // })
             }
           })
-      }
+       }
       function handleSignIn (){ setLogin(false)}
       function handleLogIn (){ setLogin(true)}
 
@@ -106,6 +120,7 @@ function Login({  authCheck }) {
                   aria-label="Username" type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)}/>
             </div>
             <button>login</button>
+            <div className='text-light fw-bold bg-warning'>{errors}</div>
             <p className="message">Not registered? <Link to="#"onClick={handleSignIn}>Create an account</Link></p>
           </form>
           </div>
@@ -150,16 +165,13 @@ function Login({  authCheck }) {
             </div>
             <button>sign in</button>
             <p className="">registered already? <Link to="#"onClick={handleLogIn}>log in</Link></p>
+            <div className='text-light fw-bold bg-warning'>{errors}</div>
           </form>
           </div>
         </div>
       </div>
    ) 
   return (
-
-
-
-
     <>
     {authForm}
     </>

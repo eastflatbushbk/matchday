@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
-import { ErrorContext } from './ErrorContext'
+// import React, { useContext } from 'react'
+// import { ErrorContext } from './ErrorContext'
 
-function Errors() {
-    const {errors} = useContext(ErrorContext)
+// function Errors() {
+//     const {errors} = useContext(ErrorContext)
 
-    const displayErrors = errors.map( (error, idx) => <li key={idx}>{error}</li>)
+//     const displayErrors = errors.map( (error, idx) => <li key={idx}>{error}</li>)
   
-    return (
-    <ul>{displayErrors}</ul>
-  )
-}
+//     return (
+//     <ul>{displayErrors}</ul>
+//   )
+// }
 
-export default Errors
+// export default Errors

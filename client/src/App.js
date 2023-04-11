@@ -11,7 +11,7 @@ import MatchForm from "./components/MatchForm";
 import MatchDetails from "./components/MatchDetails";
 import EditMatchForm from "./components/EditMatchForm";
 import NavBar from "./components/NavBar";
-import Errors from "./components/Errors";
+// import Errors from "./components/Errors";
 // import { OpinionProvider } from "./components/OpinionContext";
 import CommentForm from "./components/CommentForm";
 
@@ -43,15 +43,14 @@ function App() {
    
     <div>
       
-     <ErrorProvider>
+    
+       <ErrorProvider>
            <UserProvider setAuthCheck={ setAuthCheck }>
               <MatchProvider>
-                {/* <OpinionProvider> */}
                  <NavBar />
-                       <Errors/>
+                       {/* <Errors/> */}
                                {routeJsx}
-                        {/* </OpinionProvider> */}
-                    </MatchProvider>
+                      </MatchProvider>
                </UserProvider>
           </ErrorProvider>
  

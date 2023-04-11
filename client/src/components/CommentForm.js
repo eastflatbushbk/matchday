@@ -48,7 +48,7 @@ function CommentForm({authCheck}) {
                 user_id: opinion.user_id
               })
             
-          }, [matches, authCheck, loggedIn, currentUser, id, navigate])
+          }, [matches, authCheck, loggedIn, currentUser, id, match_id, navigate])
 
     function handleChange(event){
         

@@ -7,7 +7,8 @@ function CommentCard({com, matchArr}) {
     const {currentUser} = useContext(UserContext)
     const { patchMatch} = useContext(MatchContext)
     const navigate = useNavigate()
-    console.log(matchArr)
+
+    
 
     function handleEdit(id , match_id) {
         console.log(id)
@@ -21,35 +22,24 @@ function CommentCard({com, matchArr}) {
         fetch(`/opinions/${id}`, {
             method: "DELETE"
         })
-       
-            // console.log(deletedOpinion)
-            // const copyOfMatches = [...matches]
-         //   console.log(matches)
-            // console.log(copyOfMatches)
-            // const updatedMatch = match.filter((item) => item.id !== deletedTask.id)
-    //    const matchToUpdate = copyOfMatches.find(match => match.id === deletedOpinion.match.id)
-    //    console.log(matchToUpdate)
-    //    const opinionToUpdate = matchToUpdate.opinions.find( o => o.id === deletedOpinion.id )
+              
         console.log(matchArr)
-
         console.log(matchArr.opinions)
-       
+               
         const matchWithOpinionRemoved = matchArr.opinions.filter( o => o.id !== id )
-        
         console.log(matchWithOpinionRemoved)
-
+        
         const updatedMatch = {...matchArr, opinions: matchWithOpinionRemoved}
         console.log(updatedMatch)
            patchMatch(updatedMatch)
         
         
         } 
-            //  navigate('/match')
-          
+           
 
          
 
-//  
+
 
 
     const displaybtns = currentUser.id === com.user_id ? (
