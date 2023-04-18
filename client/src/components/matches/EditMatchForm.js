@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ErrorContext } from './ErrorContext'
-import { MatchContext } from './MatchContext'
-import { UserContext } from './UserContext'
+import { ErrorContext } from '../../context/ErrorContext'
+import { MatchContext } from '../../context/MatchContext'
+import { UserContext } from '../../context/UserContext'
 
 
 const defaultData = {
@@ -15,7 +15,7 @@ const defaultData = {
     awayteam_img_url: ""
     }
 
-function EditMatchForm({authCheck}) {
+function EditMatchForm({rendering}) {
 
     const [ modifiedMatch, setModifiedMatch ] = useState(defaultData)
     const {matches, patchMatch} = useContext(MatchContext)
@@ -29,12 +29,12 @@ function EditMatchForm({authCheck}) {
         console.log(id)
 
     useEffect(() => {
-        if(!authCheck && !loggedIn) {
+        if(!rendering && !loggedIn) {
           navigate('/login')
         }
         const match = matches.find(match => match.id === parseInt(id))
        
-        if(!authCheck && currentUser.id !== match.user_id) {
+        if(!rendering && currentUser.id !== match.user_id) {
             navigate('/match')
           }
          
@@ -48,7 +48,7 @@ function EditMatchForm({authCheck}) {
             awayteam_img_url: match.awayteam_img_url
           })
         
-      }, [matches, authCheck, loggedIn, currentUser, id, navigate])
+      }, [matches, rendering, loggedIn, currentUser, id, navigate])
 
     function handleChange (event){
         setModifiedMatch({
@@ -56,6 +56,11 @@ function EditMatchForm({authCheck}) {
   
             
           })
+    }
+
+    const goBack = () => {
+      navigate(-1);
+      setErrors([])
     }
 
 
@@ -92,13 +97,15 @@ function EditMatchForm({authCheck}) {
   return (
 
    
+<>
 
-
-
-    <div className="container-flex row justify-content-center">
+     <input className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example"></input>
+ 
+    <div className="container-flex row  bg-secondary  justify-content-center">
+         <div className="col-lg-4">
         <form onSubmit={handleSubmit}>
-                <input class="form-control" type="text" value={modifiedMatch.game} name="game" onChange={handleChange} placeholder="Game #" aria-label="default input example"/>
-          <select class="form-select" value={modifiedMatch.home_team} name="home_team" onChange={handleChange} aria-label="Default select example">
+                <input className="form-control" type="text" value={modifiedMatch.game} name="game" onChange={handleChange} placeholder="Game #" aria-label="default input example"/>
+          <select className="form-select" value={modifiedMatch.home_team} name="home_team" onChange={handleChange} aria-label="Default select example">
              <option selected="">select home team</option>
              <option value="Arsenal">Arsenal</option>
              <option value="Aston Villa FC">Aston Villa FC</option>
@@ -122,8 +129,8 @@ function EditMatchForm({authCheck}) {
              <option value="Wolverhampton Wanderers">Wolverhampton Wanderers</option>
            </select>
      
-                <input class="form-control" type="text" value={modifiedMatch.home_score} name="home_score" onChange={handleChange} placeholder="Home team score" aria-label="default input example"/>
-          <select class="form-select"  value={modifiedMatch.hometeam_img_url} name="hometeam_img_url" onChange={handleChange} aria-label="Default select example">
+                <input className="form-control" type="text" value={modifiedMatch.home_score} name="home_score" onChange={handleChange} placeholder="Home team score" aria-label="default input example"/>
+          <select className="form-select"  value={modifiedMatch.hometeam_img_url} name="hometeam_img_url" onChange={handleChange} aria-label="Default select example">
             <option selected="">select home team img url</option>
              <option value="http://sportslogohistory.com/wp-content/uploads/2020/04/Arsenal_2002-Pres-1-150x150.png">Arsenal</option>
              <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/aston_villa_fc_2016-pres-150x150.png">Aston Villa FC</option>
@@ -148,7 +155,7 @@ function EditMatchForm({authCheck}) {
       </select>
         
     
-    <select class="form-select"  value={modifiedMatch.away_team} name="away_team" onChange={handleChange} aria-label="Default select example">
+    <select className="form-select"  value={modifiedMatch.away_team} name="away_team" onChange={handleChange} aria-label="Default select example">
       <option selected="">select away team</option>
        <option value="Arsenal">Arsenal</option>
        <option value="Aston Villa FC">Aston Villa FC</option>
@@ -171,9 +178,9 @@ function EditMatchForm({authCheck}) {
        <option value="West Ham United">West Ham United</option>
        <option value="Wolverhampton Wanderers">Wolverhampton Wanderers</option>
      </select>
-        <input class="form-control" type="text" value={modifiedMatch.away_score} name="away_score" onChange={handleChange} placeholder="away team score " aria-label="default input example"/>
+        <input className="form-control" type="text" value={modifiedMatch.away_score} name="away_score" onChange={handleChange} placeholder="away team score " aria-label="default input example"/>
     
-     <select class="form-select" value={modifiedMatch.awayteam_img_url} name="awayteam_img_url" onChange={handleChange} aria-label="Default select example">
+     <select className="form-select" value={modifiedMatch.awayteam_img_url} name="awayteam_img_url" onChange={handleChange} aria-label="Default select example">
        <option selected="">select away team img url</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/04/Arsenal_2002-Pres-1-150x150.png">Arsenal</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/aston_villa_fc_2016-pres-150x150.png">Aston Villa FC</option>
@@ -196,15 +203,18 @@ function EditMatchForm({authCheck}) {
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/west_ham_united-fc_1999-2016-150x150.png">West Ham United</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/wolverhampton_wanderers_2002-pres-150x150.png">Wolverhampton Wanderers</option>
       </select>
-    <button class="btn btn-primary" type="submit">submit</button>
+    <button className="btn btn-primary" type="submit">submit</button>
+    &nbsp;
+    <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
     
    </form>
    
   
     
   </div>
+  </div>
 
-
+</>
   )
 
   

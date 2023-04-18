@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
+// import MatchCard from './MatchCard'
+// import { MatchContext } from '../context/MatchContext'
 import MatchCard from './MatchCard'
-import { MatchContext } from './MatchContext'
+import { MatchContext } from '../../context/MatchContext'
 
 function MatchPage() {
     const {matches} = useContext(MatchContext)

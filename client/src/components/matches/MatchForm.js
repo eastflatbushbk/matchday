@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext,  useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-  import { ErrorContext } from './ErrorContext';
-import { MatchContext } from './MatchContext';
-import { UserContext } from './UserContext';
+  // import { ErrorContext } from '../context/ErrorContext';
+// import { MatchContext } from '../context/MatchContext';
+import { ErrorContext } from '../../context/ErrorContext';
+import { MatchContext } from '../../context/MatchContext';
+// import { UserContext } from './UserContext';
 
 
 const defaultData = {
@@ -15,26 +17,31 @@ const defaultData = {
     awayteam_img_url: ""
     }
 
-function MatchForm({authCheck}) {
+function MatchForm({rendering}) {
 
     const [ newMatch, setNewMatch ] = useState(defaultData)
     const {postMatch} = useContext(MatchContext)
-    const {loggedIn} = useContext(UserContext)
-     const { setErrors} = useContext(ErrorContext)
+    // const {loggedIn} = useContext(UserContext)
+     const { setErrors, errors} = useContext(ErrorContext)
    // const [errorMsg, setErrorMsg] = useState([])
     const navigate = useNavigate()
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    if(!authCheck && !loggedIn) {
-        navigate('/login')
-      }
-       return () => {
+    // if(!rendering && !loggedIn) {
+    //     navigate('/login')
+    //   }
+    //    return () => {
        
-        setErrors([])
-      }
-    }, [authCheck, loggedIn, navigate, setErrors])
+    //     setErrors([])
+    //   }
+    // }, [rendering, loggedIn, navigate, setErrors])
+   
+	const goBack = () => {
+		navigate(-1);
+    setErrors([])
+  }
 
 
     function handleChange(event){
@@ -49,6 +56,7 @@ function MatchForm({authCheck}) {
 
   function handleSubmit(event) {
         event.preventDefault();
+        setErrors([])
         // const createMatch = {
         //     game: newMatch.game,
         //     home_team: newMatch.home_team,
@@ -80,13 +88,16 @@ function MatchForm({authCheck}) {
               })
          } else {
              resp.json().then(errors => {
-                  setErrors(errors.error)
+                   setErrors(errors.errors)
+                  console.log(errors)
+                   console.log(errors.errors)
              })
          }
       })
        
     }
 
+    const displayErrors = errors.map( error => <li >{error}</li>)
     // const displayErrors =    errors.size > 0 ? errors.map(error => <p>{error}</p>) : null 
 
     //const displayErrors =    <p style= {{color:"red"}}className="text-center">{errorMsg}</p> 
@@ -97,13 +108,17 @@ function MatchForm({authCheck}) {
     // }
     
   return (
-    <div>
-     <div className="container-flex row justify-content-center" >
+   <>
+   <input className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example"></input>
+   &nbsp;
+    <div className="container-flex row bg-light justify-content-center" >
+    {/* <div className="col-md-2"></div> */}
+     <div className="col-lg-4">
           <form onSubmit={handleSubmit}>
-                <input class="form-control" type="text" placeholder="Game #" aria-label="game" name="game" value={newMatch.game} onChange={handleChange} />
-            
+                <input className="form-control" type="text" placeholder="Game #" aria-label="game" name="game" value={newMatch.game} onChange={handleChange} />
+                &nbsp;
              
-          <select class="form-select" value={newMatch.home_team} name="home_team" onChange={handleChange} aria-label="Default select example">
+          <select className="form-select" value={newMatch.home_team} name="home_team" onChange={handleChange} aria-label="Default select example">
              <option selected="">select home team</option>
              <option value="Arsenal">Arsenal</option>
              <option value="Aston Villa FC">Aston Villa FC</option>
@@ -126,10 +141,10 @@ function MatchForm({authCheck}) {
              <option value="West Ham United">West Ham United</option>
              <option value="Wolverhampton Wanderers">Wolverhampton Wanderers</option>
            </select>
-     
-              <input class="form-control" type="text" value={newMatch.home_score}name="home_score" onChange={handleChange} placeholder="Home team score" aria-label="default input example"/>
-
-          <select class="form-select"  value={newMatch.hometeam_img_url} name="hometeam_img_url" onChange={handleChange} aria-label="Default select example">
+           &nbsp;
+              <input className="form-control" type="text" value={newMatch.home_score}name="home_score" onChange={handleChange} placeholder="Home team score" aria-label="default input example"/>
+              &nbsp;
+          <select className="form-select"  value={newMatch.hometeam_img_url} name="hometeam_img_url" onChange={handleChange} aria-label="Default select example">
             <option selected="">select home team img url</option>
              <option value="http://sportslogohistory.com/wp-content/uploads/2020/04/Arsenal_2002-Pres-1-150x150.png">Arsenal</option>
              <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/aston_villa_fc_2016-pres-150x150.png">Aston Villa FC</option>
@@ -152,9 +167,9 @@ function MatchForm({authCheck}) {
             <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/west_ham_united-fc_1999-2016-150x150.png">West Ham United</option>
             <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/wolverhampton_wanderers_2002-pres-150x150.png">Wolverhampton Wanderers</option>
       </select>
-        
+      &nbsp;
     
-    <select class="form-select"  value={newMatch.away_team} name="away_team" onChange={handleChange} aria-label="Default select example">
+    <select className="form-select"  value={newMatch.away_team} name="away_team" onChange={handleChange} aria-label="Default select example">
       <option selected="">select away team</option>
        <option value="Arsenal">Arsenal</option>
        <option value="Aston Villa FC">Aston Villa FC</option>
@@ -177,10 +192,10 @@ function MatchForm({authCheck}) {
        <option value="West Ham United">West Ham United</option>
        <option value="Wolverhampton Wanderers">Wolverhampton Wanderers</option>
      </select>
-
-        <input class="form-control" type="text" value={newMatch.away_score} name="away_score" onChange={handleChange} placeholder="away team score " aria-label="default input example"/>
-    
-     <select class="form-select" value={newMatch.awayteam_img_url} name="awayteam_img_url" onChange={handleChange} aria-label="Default select example">
+     &nbsp;
+        <input className="form-control" type="text" value={newMatch.away_score} name="away_score" onChange={handleChange} placeholder="away team score " aria-label="default input example"/>
+        &nbsp;
+     <select className="form-select" value={newMatch.awayteam_img_url} name="awayteam_img_url" onChange={handleChange} aria-label="Default select example">
        <option selected="">select away team img url</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/04/Arsenal_2002-Pres-1-150x150.png">Arsenal</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/aston_villa_fc_2016-pres-150x150.png">Aston Villa FC</option>
@@ -203,14 +218,20 @@ function MatchForm({authCheck}) {
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/west_ham_united-fc_1999-2016-150x150.png">West Ham United</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/wolverhampton_wanderers_2002-pres-150x150.png">Wolverhampton Wanderers</option>
       </select>
-    <button class="btn btn-primary" type="submit">submit</button>
-    
+      &nbsp;
+     <div>
+    <button className="btn btn-primary" type="submit">submit</button>
+    &nbsp;
+    <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
+    </div>
+    <div className='text-light fw-bold bg-warning'>{displayErrors}</div>
    </form>
   
   
     
   </div>
   </div>
+  </>
   )
 }
 

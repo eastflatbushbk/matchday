@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MatchContext } from './MatchContext'
-import { UserContext } from './UserContext'
+import { UserContext } from '../../context/UserContext'
+import { MatchContext } from '../../context/MatchContext'
+
 
 function CommentCard({com, matchArr}) {
     const {currentUser} = useContext(UserContext)
@@ -44,14 +45,15 @@ function CommentCard({com, matchArr}) {
 
     const displaybtns = currentUser.id === com.user_id ? (
         <>
-        <button type="button" onClick={() => handleEdit(com.id, matchArr.id)} class="btn btn-primary btn-sm">edit</button>
-           <button type="button" onClick={() => handleDelete(com.id)} class="btn btn-secondary btn-sm">delete</button>
+        <button type="button" onClick={() => handleEdit(com.id, matchArr.id)} className="btn btn-primary  btn-sm">edit</button>
+        &nbsp;
+        <button type="button" onClick={() => handleDelete(com.id)} className="btn btn-secondary  btn-sm">delete</button>
         </>
     ):(null)
 
   return (
-    <div>
-        <h4 className="text-warning text-center fw-bolder">{com.author} : {com.comment}</h4>
+    <div className='border'>
+        <p className="text-danger text-center"><span className='fw-bolder'>{com.username}</span> : {com.comment}</p>
         <div>
           {displaybtns}  
   </div>

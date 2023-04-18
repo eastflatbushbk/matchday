@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from "react";
 
 const UserContext = createContext({})
 
-const UserProvider = ({setAuthCheck, children}) => {
+const UserProvider = ({setRendering, children}) => {
 
     const [users, setUsers] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
@@ -21,11 +21,11 @@ const UserProvider = ({setAuthCheck, children}) => {
                          })
           }
           else {
-            // setAuthCheck(true)
-            setAuthCheck(false)
+            // setRendering(true)
+            setRendering(false)
           }
         })
-      }, [setAuthCheck]);
+      }, [setRendering]);
 
     const loginUser = user => {
         setCurrentUser(user);
@@ -50,10 +50,10 @@ const UserProvider = ({setAuthCheck, children}) => {
           .then(resp => resp.json())
           .then(data => {
             setUsers(data)
-            setAuthCheck(false)
+            setRendering(false)
           })
         }
-      }, [loggedIn, setAuthCheck])
+      }, [loggedIn, setRendering])
 
       return <UserContext.Provider value={{ users, loggedIn, currentUser, addUser, loginUser, logoutUser }}>{ children }</UserContext.Provider>
 }

@@ -1,37 +1,41 @@
 
 
 import { useState } from "react";
-import { ErrorProvider } from "./components/ErrorContext";
-import Login from "./components/Login";
-import { MatchProvider } from "./components/MatchContext";
+import { ErrorProvider } from "./context/ErrorContext";
+import Login from "./components/authorization/Login";
+import { MatchProvider } from "./context/MatchContext";
 import { Routes ,Route } from "react-router-dom";
-import {  UserProvider } from "./components/UserContext";
-import MatchPage from "./components/MatchPage";
-import MatchForm from "./components/MatchForm";
-import MatchDetails from "./components/MatchDetails";
-import EditMatchForm from "./components/EditMatchForm";
+import {  UserProvider } from "./context/UserContext";
+import EditMatchForm from "./components/matches/EditMatchForm";
+import MatchForm from "./components/matches/MatchForm";
+import MatchDetails from "./components/matches/MatchDetails"; 
+
 import NavBar from "./components/NavBar";
 // import Errors from "./components/Errors";
 // import { OpinionProvider } from "./components/OpinionContext";
-import CommentForm from "./components/CommentForm";
+
+import Signin from "./components/authorization/Signin";
+import CommentForm from "./components/comments/CommentForm";
+import MatchPage from "./components/matches/MatchPage";
 
 function App() {
 
 
-   const [authCheck, setAuthCheck] = useState(true)
+   const [rendering, setRendering] = useState(true)
   
 
  
   
- const routeJsx = authCheck ? ( <>...</> ) : (
+ const routeJsx = rendering ? ( <>...</> ) : (
 
                     <Routes>
-                          <Route exact path="/match" element={<MatchPage authCheck={authCheck}  />} />
-                          <Route exact path="/add_match" element={<MatchForm authCheck={authCheck} />} />
+                          <Route exact path="/match" element={<MatchPage rendering={rendering}  />} />
+                          <Route exact path="/add_match" element={<MatchForm rendering={rendering} />} />
                           <Route exact path="/match/:id" element={<MatchDetails      />} />
-                          <Route exact path="/edit_match" element={<EditMatchForm authCheck={authCheck}     />} />
-                          <Route exact path="/login" element={<Login authCheck={authCheck}     />} />
-                          <Route exact path="/edit_comment" element={<CommentForm authCheck={authCheck}     />} />
+                          <Route exact path="/edit_match" element={<EditMatchForm rendering={rendering}     />} />
+                          <Route exact path="/login" element={<Login rendering={rendering}     />} />
+                          <Route exact path="/signin" element={<Signin rendering={rendering}     />} />
+                          <Route exact path="/edit_comment" element={<CommentForm rendering={rendering}     />} />
         
                             {/* <Route exact path="/profile" element={null} /> */}
         
@@ -45,7 +49,7 @@ function App() {
       
     
        <ErrorProvider>
-           <UserProvider setAuthCheck={ setAuthCheck }>
+           <UserProvider setRendering={ setRendering }>
               <MatchProvider>
                  <NavBar />
                        {/* <Errors/> */}
