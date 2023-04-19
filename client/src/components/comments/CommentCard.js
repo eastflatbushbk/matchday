@@ -4,7 +4,7 @@ import { UserContext } from '../../context/UserContext'
 import { MatchContext } from '../../context/MatchContext'
 
 
-function CommentCard({com, matchArr}) {
+function CommentCard({com, matchObj}) {
     const {currentUser} = useContext(UserContext)
     const { patchMatch} = useContext(MatchContext)
     const navigate = useNavigate()
@@ -24,13 +24,13 @@ function CommentCard({com, matchArr}) {
             method: "DELETE"
         })
               
-        console.log(matchArr)
-        console.log(matchArr.opinions)
+        console.log(matchObj)
+        console.log(matchObj.opinions)
                
-        const matchWithOpinionRemoved = matchArr.opinions.filter( o => o.id !== id )
+        const matchWithOpinionRemoved = matchObj.opinions.filter( o => o.id !== id )
         console.log(matchWithOpinionRemoved)
         
-        const updatedMatch = {...matchArr, opinions: matchWithOpinionRemoved}
+        const updatedMatch = {...matchObj, opinions: matchWithOpinionRemoved}
         console.log(updatedMatch)
            patchMatch(updatedMatch)
         
@@ -45,7 +45,7 @@ function CommentCard({com, matchArr}) {
 
     const displaybtns = currentUser.id === com.user_id ? (
         <>
-        <button type="button" onClick={() => handleEdit(com.id, matchArr.id)} className="btn btn-primary  btn-sm">edit</button>
+        <button type="button" onClick={() => handleEdit(com.id, matchObj.id)} className="btn btn-primary  btn-sm">edit</button>
         &nbsp;
         <button type="button" onClick={() => handleDelete(com.id)} className="btn btn-secondary  btn-sm">delete</button>
         </>

@@ -6,30 +6,13 @@ import { UserContext } from '../../context/UserContext';
 function Login() {
       const [password, setPassword] = useState("")
       const [username, setUsername] = useState("")
-
-      // const [age, setAge] = useState("")
-      // const [location, setLocation] = useState("")
-      // const [favorite, setFavorite] = useState("")
-      // const [confirmation, setConfirmation] = useState("")
-
-      // const [login, setLogin] = useState(true)
-
+      
       const { errors, setErrors} = useContext(ErrorContext)
       const { loginUser} = useContext(UserContext)
 
       const navigate = useNavigate();
 
-      // useEffect(() => {
-           
-      //   if(!authCheck && loggedIn) {
-      //     navigate('/match')
-      //   }
-      //   return () => {
-         
-      //     setErrors([])
-      //   }
-      // }, [authCheck, loggedIn, navigate, setErrors])
-
+     
       function handleLogInSubmit(event){
         event.preventDefault()
         setErrors([])
@@ -46,15 +29,13 @@ function Login() {
             if (res.ok) {
               res.json().then(user => {
                 loginUser(user)
-                // setErrors([])
                 navigate('/match')
               })
             } else {
               res.json().then(err => {
                 
                 setErrors(err.errors)
-                //  const displayErrors = err.errors
-               console.log(err.errors)
+                console.log(err.errors)
               })
             }
           })
@@ -81,7 +62,7 @@ function Login() {
             </div>
             <button>login</button>
             <div className='text-light fw-bold bg-warning'>{errors}</div>
-            {/* <p className="message">Not registered? <Link  to="/signin">Create an account</Link></p> */}
+           
           </form>
           </div>
         </div>

@@ -32,8 +32,8 @@ function MatchDetails() {
         //  console.log(matches)
 
         //   console.log(matches)
-      const matchArr = matches.find(a => a.id === matchId)
-          console.log(matchArr)
+      const matchObj = matches.find(a => a.id === matchId)
+          console.log(matchObj)
 
     function deleteMatch(matchId) {
         fetch(`/matches/${matchId}`, {
@@ -86,9 +86,9 @@ function MatchDetails() {
              if (resp.ok) {
                   resp.json().then(addedOpinion => {
                     console.log(addedOpinion)
-                      const newOpinions = [...matchArr.opinions, addedOpinion]
+                      const newOpinions = [...matchObj.opinions, addedOpinion]
                       console.log(newOpinions)
-                      const updatedMatch = {...matchArr, opinions: newOpinions}
+                      const updatedMatch = {...matchObj, opinions: newOpinions}
                       console.log(updatedMatch)
                        patchMatch(updatedMatch)
                         setNewComment("")
@@ -124,7 +124,7 @@ function MatchDetails() {
          navigate('/edit_match',{state:{id:id}})
     }
     
- const content = matchArr.opinions.map( com => <CommentCard key={com.id} com={com} matchArr={matchArr} />) 
+ const content = matchObj.opinions.map( com => <CommentCard key={com.id} com={com} matchObj={matchObj} />) 
 
  const showBtn = formBtn ?(
   
@@ -151,11 +151,11 @@ const displayForm = showForm ? (
 
 
 
- const displayButtons = currentUser.id === matchArr.user_id ? (
+ const displayButtons = currentUser.id === matchObj.user_id ? (
       <>
-      <button type="button" onClick={() => handleEdit(matchArr.id)} className="btn btn-outline-secondary">edit match</button>
+      <button type="button" onClick={() => handleEdit(matchObj.id)} className="btn btn-outline-secondary">edit match</button>
       &nbsp;
-      <button type="button" onClick={() => deleteMatch(matchArr.id)} className="btn btn-outline-danger">delete match</button>
+      <button type="button" onClick={() => deleteMatch(matchObj.id)} className="btn btn-outline-danger">delete match</button>
       &nbsp;
       </>
      ) :(null) 
@@ -165,19 +165,19 @@ const displayForm = showForm ? (
     <div className="container-fluid bg-light py-5 border">
   <div className="row">
      <div className="col-md-2"></div>
-         <h3 className="text-success col-md-3 text-start fw-bolder"> Game - {matchArr.game}</h3>
+         <h3 className="text-success col-md-3 text-start fw-bolder"> Game - {matchObj.game}</h3>
         <div className="col-md-2"></div>
-           <h3 className="col-md-3 text-end"><span class="fs-6">posted by:</span>{matchArr.author.username}</h3>
+           <h3 className="col-md-3 text-end"><span class="fs-6">posted by:</span>{matchObj.author.username}</h3>
    </div>
 
     <div className="row">
     <div className="col-md-2"></div>
       <div className="col-md-3">
         <div className="card bg-warning" style={{alignItems: 'center'}}>
-          <img className="card-img-top" src={matchArr.hometeam_img_url} alt={matchArr.hometeam_img_url} style={{width:"20%",float:"left"}}/>
+          <img className="card-img-top" src={matchObj.hometeam_img_url} alt={matchObj.hometeam_img_url} style={{width:"20%",float:"left"}}/>
           <div className="card-block">
-              <h4>{matchArr.home_team}</h4>  
-              <h3 className=' text-center'>{matchArr.home_score}</h3> 
+              <h4>{matchObj.home_team}</h4>  
+              <h3 className=' text-center'>{matchObj.home_score}</h3> 
           </div>            
         </div>
       </div>
@@ -192,10 +192,10 @@ const displayForm = showForm ? (
           
   
               
-                      <img className="card-img-top" src={matchArr.awayteam_img_url} alt={matchArr.awayteam_img_url} style={{width:"20%"}}/>
+                      <img className="card-img-top" src={matchObj.awayteam_img_url} alt={matchObj.awayteam_img_url} style={{width:"20%"}}/>
                      <div className="card-block">
-                      <h4>{matchArr.away_team}</h4> 
-                        <h3 className=' text-center'>{matchArr.away_score}</h3>
+                      <h4>{matchObj.away_team}</h4> 
+                        <h3 className=' text-center'>{matchObj.away_score}</h3>
                      </div>
                
            

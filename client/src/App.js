@@ -17,6 +17,7 @@ import NavBar from "./components/NavBar";
 import Signin from "./components/authorization/Signin";
 import CommentForm from "./components/comments/CommentForm";
 import MatchPage from "./components/matches/MatchPage";
+import Home from "./components/Home";
 
 function App() {
 
@@ -36,7 +37,8 @@ function App() {
                           <Route exact path="/login" element={<Login rendering={rendering}     />} />
                           <Route exact path="/signin" element={<Signin rendering={rendering}     />} />
                           <Route exact path="/edit_comment" element={<CommentForm rendering={rendering}     />} />
-        
+                          <Route exact path="/" element={<Home />} />
+                           
                             {/* <Route exact path="/profile" element={null} /> */}
         
                       </Routes>
@@ -52,6 +54,7 @@ function App() {
            <UserProvider setRendering={ setRendering }>
               <MatchProvider>
                  <NavBar />
+                 
                        {/* <Errors/> */}
                                {routeJsx}
                       </MatchProvider>

@@ -29,5 +29,5 @@ Rails.application.routes.draw do
   get "/opinions/length/:n", to: "opinions#opinion_length"
   get "/matches/search/:term", to: "matches#matches_search"
   get "/matches/most_opinions/:n", to: "matches#most_opinions"
-
+  get "/teams_that_lost", to: "matches#teams_that_lost"
 end
