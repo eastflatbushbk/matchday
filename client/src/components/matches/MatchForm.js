@@ -1,10 +1,8 @@
 import React, { useContext,  useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-  // import { ErrorContext } from '../context/ErrorContext';
-// import { MatchContext } from '../context/MatchContext';
 import { ErrorContext } from '../../context/ErrorContext';
 import { MatchContext } from '../../context/MatchContext';
-// import { UserContext } from './UserContext';
+
 
 
 const defaultData = {
@@ -17,103 +15,67 @@ const defaultData = {
     awayteam_img_url: ""
     }
 
-function MatchForm({rendering}) {
+function MatchForm() {
 
     const [ newMatch, setNewMatch ] = useState(defaultData)
+
     const {postMatch} = useContext(MatchContext)
-    // const {loggedIn} = useContext(UserContext)
-     const { setErrors, errors} = useContext(ErrorContext)
-   // const [errorMsg, setErrorMsg] = useState([])
+    const { setErrors, errors} = useContext(ErrorContext)
+   
     const navigate = useNavigate()
 
-
-    // useEffect(() => {
-
-    // if(!rendering && !loggedIn) {
-    //     navigate('/login')
-    //   }
-    //    return () => {
-       
-    //     setErrors([])
-    //   }
-    // }, [rendering, loggedIn, navigate, setErrors])
-   
-	const goBack = () => {
-		navigate(-1);
-    setErrors([])
-  }
+  	const goBack = () => {
+		      navigate(-1);
+          setErrors([])
+          }
 
 
     function handleChange(event){
         
-        setNewMatch({
-          ...newMatch, [event.target.name]:event.target.value
+             setNewMatch({
+               ...newMatch, [event.target.name]:event.target.value
+                })
+              }
 
-          
-        })
-        
-    }
-
-  function handleSubmit(event) {
-        event.preventDefault();
-        setErrors([])
-        // const createMatch = {
-        //     game: newMatch.game,
-        //     home_team: newMatch.home_team,
-        //     away_team: newMatch.away_team,
-        //     home_score: newMatch.home_score,
-        //     away_score: newMatch.away_score,
-        //     hometeam_img_url: newMatch.hometeam_img_url,
-        //     awayteam_img_url: newMatch.awayteam_img_url
-        //    }
-        //    console.log(createMatch)
-        //    setNewMatch(createMatch)
-           console.log(newMatch)
-        // postNewMatch(newMatch);
-   
-         fetch("/matches", {
+    function handleSubmit(event) {
+                    event.preventDefault();
+                    setErrors([])
+                   console.log(newMatch)
+        fetch("/matches", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
               "Accept": "application/json"
           },
           body: JSON.stringify(newMatch)
-      })
-      .then(resp => {
+        })
+         .then(resp => {
          if (resp.ok) {
               resp.json().then(addedMatch => {
                    postMatch(addedMatch)
                    setNewMatch(defaultData)
                    navigate('/match')
               })
-         } else {
+          } else {
              resp.json().then(errors => {
                    setErrors(errors.errors)
                   console.log(errors)
                    console.log(errors.errors)
              })
-         }
-      })
+          }
+       })
        
-    }
+     }
 
     const displayErrors = errors.map( error => <li >{error}</li>)
-    // const displayErrors =    errors.size > 0 ? errors.map(error => <p>{error}</p>) : null 
-
-    //const displayErrors =    <p style= {{color:"red"}}className="text-center">{errorMsg}</p> 
-
-    // function postNewMatch(newMatch) {
-    //     console.log(newMatch)
-     
-    // }
+    
     
   return (
    <>
    <input className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example"></input>
    &nbsp;
     <div className="container-flex row bg-light justify-content-center" >
-    {/* <div className="col-md-2"></div> */}
-     <div className="col-lg-4">
+      <div className="col-lg-4">
           <form onSubmit={handleSubmit}>
                 <input className="form-control" type="text" placeholder="Game #" aria-label="game" name="game" value={newMatch.game} onChange={handleChange} />
                 &nbsp;
@@ -219,18 +181,16 @@ function MatchForm({rendering}) {
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/wolverhampton_wanderers_2002-pres-150x150.png">Wolverhampton Wanderers</option>
       </select>
       &nbsp;
-     <div>
-    <button className="btn btn-primary" type="submit">submit</button>
-    &nbsp;
-    <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
-    </div>
+       <div>
+            <button className="btn btn-primary" type="submit">submit</button>
+               &nbsp;
+            <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
+       </div>
     <div className='text-light fw-bold bg-warning'>{displayErrors}</div>
    </form>
-  
-  
     
-  </div>
-  </div>
+    </div>
+   </div>
   </>
   )
 }

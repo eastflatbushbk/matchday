@@ -118,19 +118,19 @@ function CommentForm({rendering}) {
   return (
     <>
     <input className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example"/>
-    &nbsp;
-    <div className="container-flex row  bg-secondary-emphasis  justify-content-center"> 
+      &nbsp;
+   <div className="container-flex row  bg-secondary-emphasis  justify-content-center"> 
     <div className="col-lg-8">
-         <form action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={handleSubmit} >
-    <textarea name="comment"  value={editedOpinion.comment} onChange={handleChange} style={{width:"96%",height:"90px",padding:"2%",font:"1.4em/1.6em cursive", backgroundcolor:"gold", color:"green"}}>
+      <form action="/html/tags/html_form_tag_action.cfm" method="post" onSubmit={handleSubmit} >
+         <textarea name="comment"  value={editedOpinion.comment} onChange={handleChange} style={{width:"96%",height:"90px",padding:"2%",font:"1.4em/1.6em cursive", backgroundcolor:"gold", color:"green"}}>
       
-      </textarea>
-      <div className='text-light fw-bold bg-warning'>{errors}</div>
-     <button className="btn btn-primary" type="submit">submit</button>
-     &nbsp;
-    <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
-    </form> 
-    </div>
+         </textarea>
+        <div className='text-light fw-bold bg-warning'>{errors}</div>
+           <button className="btn btn-primary" type="submit">submit</button>
+             &nbsp;
+           <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
+         </form> 
+       </div>
     </div>
     </>
   )

@@ -18,6 +18,7 @@ const defaultData = {
 function EditMatchForm({rendering}) {
 
     const [ modifiedMatch, setModifiedMatch ] = useState(defaultData)
+    
     const {matches, patchMatch} = useContext(MatchContext)
     const {setErrors} = useContext(ErrorContext)
     const {currentUser, loggedIn} = useContext(UserContext)
