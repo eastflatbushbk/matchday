@@ -6,7 +6,7 @@ import { UserContext } from '../../context/UserContext';
 function Login() {
       const [password, setPassword] = useState("")
       const [username, setUsername] = useState("")
-      
+
       const { errors, setErrors} = useContext(ErrorContext)
       const { loginUser} = useContext(UserContext)
 
@@ -67,7 +67,7 @@ function Login() {
           </div>
         </div>
       </div>  
-       </div>   
+    </div>   
   )
 }
 

@@ -1,11 +1,5 @@
 import React, {  useContext, useState} from 'react'
 import {  useNavigate, useParams } from 'react-router-dom'
-// import CommentCard from './CommentCard'
-
-// import { ErrorContext } from '../context/ErrorContext';
-// import { MatchContext } from '../context/MatchContext';
-// import { OpinionContext } from './OpinionContext';
-// import { UserContext } from '../context/UserContext';
 import CommentCard from '../comments/CommentCard';
 import { ErrorContext } from '../../context/ErrorContext';
 import { MatchContext } from '../../context/MatchContext';
@@ -17,22 +11,17 @@ import { UserContext } from '../../context/UserContext';
 function MatchDetails() {
     const  [formBtn, setFormBtn] = useState(false)
     const  [showForm , setShowForm] = useState(true)
-     const [newComment , setNewComment] = useState("")
+    const [newComment , setNewComment] = useState("")
+
     const {matches , destroyMatch, patchMatch} = useContext(MatchContext)
     const {currentUser} = useContext(UserContext)
-    // const {opinions, patchOpinion , destroyOpinion} = useContext(OpinionContext)
-     const {setErrors, errors} = useContext(ErrorContext)
-
-
-    
+    const {setErrors, errors} = useContext(ErrorContext)
+   
     const navigate = useNavigate();
    
      const matchId = parseInt(useParams().id)
-        //  console.log(matchId)
-        //  console.log(matches)
 
-        //   console.log(matches)
-      const matchObj = matches.find(a => a.id === matchId)
+     const matchObj = matches.find(a => a.id === matchId)
           console.log(matchObj)
 
     function deleteMatch(matchId) {
@@ -70,10 +59,7 @@ function MatchDetails() {
                 match_id: matchId
                }
                 console.log(createOpinion)
-            //    setNewMatch(createMatch)
-               
-            // postNewMatch(newMatch);
-       
+                             
              fetch("/opinions", {
               method: "POST",
               headers: {
@@ -92,8 +78,7 @@ function MatchDetails() {
                       console.log(updatedMatch)
                        patchMatch(updatedMatch)
                         setNewComment("")
-                       // navigate('/match')
-                  })
+                     })
              } else {
                  resp.json().then(errors => {
                       setErrors(errors.errors)
@@ -113,13 +98,10 @@ function MatchDetails() {
         }
         function handleChat () {
           setShowForm(true)
-          // setNewComment("")
           setFormBtn(false)
         }
       
-      
-
-      function handleEdit(id) {
+       function handleEdit(id) {
         console.log(id)
          navigate('/edit_match',{state:{id:id}})
     }
@@ -141,9 +123,9 @@ const displayForm = showForm ? (
         
         </textarea>
         <div className='text-light fw-bold bg-warning'>{errors}</div>
-       <button className="btn btn-primary" type="submit">submit</button>
-       &nbsp;
-       <button className="btn btn-primary" onClick={handleForm}  type="button">cancel</button>
+        <button className="btn btn-primary" type="submit">submit</button>
+         &nbsp;
+        <button className="btn btn-primary" onClick={handleForm}  type="button">cancel</button>
       </form> 
    </>
 
@@ -160,13 +142,13 @@ const displayForm = showForm ? (
       </>
      ) :(null) 
  
-//  const displayErrors =   <p style= {{color:"red"}}className="text-center">{errorMsg}</p>
+
   return (
     <div className="container-fluid bg-light py-5 border">
-  <div className="row">
-     <div className="col-md-2"></div>
-         <h3 className="text-success col-md-3 text-start fw-bolder"> Game - {matchObj.game}</h3>
-        <div className="col-md-2"></div>
+      <div className="row">
+       <div className="col-md-2"></div>
+             <h3 className="text-success col-md-3 text-start fw-bolder"> Game - {matchObj.game}</h3>
+            <div className="col-md-2"></div>
            <h3 className="col-md-3 text-end"><span class="fs-6">posted by:</span>{matchObj.author.username}</h3>
    </div>
 
@@ -197,9 +179,7 @@ const displayForm = showForm ? (
                       <h4>{matchObj.away_team}</h4> 
                         <h3 className=' text-center'>{matchObj.away_score}</h3>
                      </div>
-               
-           
-                      
+                                
         </div>       
       <div>            
     </div>
@@ -211,31 +191,26 @@ const displayForm = showForm ? (
      <div className="col-md-3">
               { displayButtons }
               {showBtn}
-             </div>
-             </div>
+         </div>
+         </div>
 
      <div className="row p-2">
-     <div className="col-md-2"></div>
-     <div className="col-md-8">
-      {displayForm}
-      </div>
+       <div className="col-md-2"></div>
+         <div className="col-md-8">
+                {displayForm}
+           </div>
      </div> 
 
    <div className="row p-2">
-   <div className="col-md-2"></div>
-   <div className="col-md-8">
-    <li>
-        {content}
-    </li>
-    </div>
+      <div className="col-md-2"></div>
+        <div className="col-md-8">
+           <li>
+              {content}
+           </li>
+         </div>
     </div>  
   </div>     
   )
 }
 
 export default MatchDetails
-
-
-
-
-// onUpdatedCom={handleUpdate} onDeletedCom={handleDeletedCom}

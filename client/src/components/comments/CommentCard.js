@@ -7,9 +7,8 @@ import { MatchContext } from '../../context/MatchContext'
 function CommentCard({com, matchObj}) {
     const {currentUser} = useContext(UserContext)
     const { patchMatch} = useContext(MatchContext)
-    const navigate = useNavigate()
 
-    
+    const navigate = useNavigate()
 
     function handleEdit(id , match_id) {
         console.log(id)
@@ -33,8 +32,7 @@ function CommentCard({com, matchObj}) {
         const updatedMatch = {...matchObj, opinions: matchWithOpinionRemoved}
         console.log(updatedMatch)
            patchMatch(updatedMatch)
-        
-        
+               
         } 
            
 

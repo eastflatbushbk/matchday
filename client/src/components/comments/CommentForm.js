@@ -1,8 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-
-
-// import { UserContext } from '../context/UserContext'
 import { ErrorContext } from '../../context/ErrorContext'
 import { MatchContext } from '../../context/MatchContext'
 import { UserContext } from '../../context/UserContext'
@@ -16,14 +13,16 @@ const defaultData = {
     }
 
 function CommentForm({rendering}) {
+
     const [editedOpinion , setEditedOpinion] = useState(defaultData)
+
     const {setErrors,errors} = useContext(ErrorContext)
-   
     const {matches, patchMatch} = useContext(MatchContext)
     const {currentUser, loggedIn} = useContext(UserContext)
 
     const navigate = useNavigate();
     const location = useLocation();
+
     console.log(location.state)
      const id = location.state.id
      const match_id = location.state.match_id
@@ -50,19 +49,19 @@ function CommentForm({rendering}) {
             
           }, [matches, rendering, loggedIn, currentUser, id, match_id, navigate])
 
-    function handleChange(event){
+        function handleChange(event){
         
         setEditedOpinion({
           ...editedOpinion, [event.target.name]:event.target.value
          
         })
         
-    }
+       }
 
-    const goBack = () => {
+     const goBack = () => {
       navigate(-1);
       setErrors([])
-    }
+      }
 
 
     function handleSubmit (event ){
