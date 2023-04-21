@@ -72,10 +72,12 @@ function MatchForm() {
     
   return (
    <>
-   <input className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example"></input>
-   &nbsp;
-    <div className="container-flex row bg-light justify-content-center" >
+   
+   <br/>
+   <br/>
+   <div className="container-flex row bg-light justify-content-center" >
       <div className="col-lg-4">
+        &nbsp;
           <form onSubmit={handleSubmit}>
                 <input className="form-control" type="text" placeholder="Game #" aria-label="game" name="game" value={newMatch.game} onChange={handleChange} />
                 &nbsp;

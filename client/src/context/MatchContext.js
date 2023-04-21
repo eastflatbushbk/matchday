@@ -13,7 +13,7 @@ const MatchProvider = ({children}) => {
         .then(matchesData => {
           console.log(matchesData)
           setMatches(matchesData)
-        //   console.log(matches)
+        
         })
         
     }, [])

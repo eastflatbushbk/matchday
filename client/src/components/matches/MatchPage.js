@@ -1,6 +1,4 @@
 import React, { useContext } from 'react'
-// import MatchCard from './MatchCard'
-// import { MatchContext } from '../context/MatchContext'
 import MatchCard from './MatchCard'
 import { MatchContext } from '../../context/MatchContext'
 

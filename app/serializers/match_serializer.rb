@@ -4,7 +4,7 @@ class MatchSerializer < ActiveModel::Serializer
 
   def author
     {
-      # id: object.author.id,
+     
       username: object.author.username,
       
     }

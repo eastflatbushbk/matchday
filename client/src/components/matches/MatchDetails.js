@@ -37,8 +37,7 @@ function MatchDetails() {
         
             setNewComment({
               ...newComment, [event.target.name]:event.target.value
-    
-              
+         
             })
             
         }
@@ -47,19 +46,13 @@ function MatchDetails() {
             event.preventDefault();
             setErrors([])
             console.log('comment submitted')
-           console.log(newComment.comment)
-           console.log(currentUser.username)
-
-           console.log(currentUser)
-           console.log(currentUser.id)
-
+          
             const createOpinion = {
                 comment: newComment.comment,
                 user_id: currentUser.id,
                 match_id: matchId
                }
-                console.log(createOpinion)
-                             
+                                             
              fetch("/opinions", {
               method: "POST",
               headers: {
@@ -71,12 +64,13 @@ function MatchDetails() {
           .then(resp => {
              if (resp.ok) {
                   resp.json().then(addedOpinion => {
-                    console.log(addedOpinion)
+                    
                       const newOpinions = [...matchObj.opinions, addedOpinion]
-                      console.log(newOpinions)
+                      
                       const updatedMatch = {...matchObj, opinions: newOpinions}
-                      console.log(updatedMatch)
+                      
                        patchMatch(updatedMatch)
+
                         setNewComment("")
                      })
              } else {
@@ -89,13 +83,13 @@ function MatchDetails() {
            
         }
        
-
         function handleForm () {
           setShowForm(false)
           setNewComment("")
           setErrors([])
           setFormBtn(true)
         }
+
         function handleChat () {
           setShowForm(true)
           setFormBtn(false)
@@ -109,10 +103,10 @@ function MatchDetails() {
  const content = matchObj.opinions.map( com => <CommentCard key={com.id} com={com} matchObj={matchObj} />) 
 
  const showBtn = formBtn ?(
-  
-  <button type="button" onClick={handleChat} className="btn btn-outline-secondary">💬</button>
 
- ):(null)
+                           <button type="button" onClick={handleChat} className="btn btn-outline-secondary">💬</button>
+                           
+                          ):(null)
 
 
 const displayForm = showForm ? (
@@ -149,7 +143,7 @@ const displayForm = showForm ? (
        <div className="col-md-2"></div>
              <h3 className="text-success col-md-3 text-start fw-bolder"> Game - {matchObj.game}</h3>
             <div className="col-md-2"></div>
-           <h3 className="col-md-3 text-end"><span class="fs-6">posted by:</span>{matchObj.author.username}</h3>
+           <h3 className="col-md-3 text-end"><span className="fs-6">posted by:</span>{matchObj.author.username}</h3>
    </div>
 
     <div className="row">

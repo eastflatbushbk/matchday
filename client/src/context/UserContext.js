@@ -9,7 +9,7 @@ const UserProvider = ({setRendering, children}) => {
     const [users, setUsers] = useState([])
     const [loggedIn, setLoggedIn] = useState(false)
     const [currentUser, setCurrentUser] = useState(null)
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
    
     useEffect(() => {
@@ -21,7 +21,6 @@ const UserProvider = ({setRendering, children}) => {
                          })
           }
           else {
-            // setRendering(true)
             setRendering(false)
           }
         })

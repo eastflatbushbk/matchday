@@ -81,28 +81,22 @@ function CommentForm({rendering}) {
            if (resp.ok) {
                 resp.json().then(modifiedOpinion => {
 
-                    console.log(modifiedOpinion)
-                    console.log(modifiedOpinion.match.id)
-
-                   const copyOfMatches = [...matches]
+                    const copyOfMatches = [...matches]
                      
-                      console.log(matches)
-                      console.log(copyOfMatches)
-                 
                     const matchToUpdate = copyOfMatches.find(match => match.id === modifiedOpinion.match.id)
-                  console.log(matchToUpdate)
-                  const opinionToUpdate = matchToUpdate.opinions.find( o => o.id === modifiedOpinion.id )
+                  
+                    const opinionToUpdate = matchToUpdate.opinions.find( o => o.id === modifiedOpinion.id )
 
-                  const idx = matchToUpdate.opinions.indexOf(opinionToUpdate)
-                 console.log(idx)
-                   delete modifiedOpinion.match ;
-                   console.log(modifiedOpinion)
-                 matchToUpdate.opinions.splice(idx, 1, modifiedOpinion)
-                  console.log(matchToUpdate)
-                    
-                        patchMatch(matchToUpdate)
+                    const idx = matchToUpdate.opinions.indexOf(opinionToUpdate)
+                 
+                    delete modifiedOpinion.match ;
                    
-                     setEditedOpinion(defaultData)
+                    matchToUpdate.opinions.splice(idx, 1, modifiedOpinion)
+                  
+                    patchMatch(matchToUpdate)
+                   
+                    setEditedOpinion(defaultData)
+                    
                      navigate(`/match/${match_id}`)
                 })
            } else {

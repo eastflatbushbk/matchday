@@ -12,7 +12,6 @@ function CommentCard({com, matchObj}) {
 
     function handleEdit(id , match_id) {
         console.log(id)
-        console.log(com)
         console.log(match_id)
          navigate('/edit_comment',{state:{id:id,match_id:match_id}})
     }
@@ -23,24 +22,14 @@ function CommentCard({com, matchObj}) {
             method: "DELETE"
         })
               
-        console.log(matchObj)
-        console.log(matchObj.opinions)
-               
         const matchWithOpinionRemoved = matchObj.opinions.filter( o => o.id !== id )
-        console.log(matchWithOpinionRemoved)
         
         const updatedMatch = {...matchObj, opinions: matchWithOpinionRemoved}
-        console.log(updatedMatch)
-           patchMatch(updatedMatch)
+        
+        patchMatch(updatedMatch)
                
         } 
-           
-
          
-
-
-
-
     const displaybtns = currentUser.id === com.user_id ? (
         <>
         <button type="button" onClick={() => handleEdit(com.id, matchObj.id)} className="btn btn-primary  btn-sm">edit</button>
@@ -54,8 +43,8 @@ function CommentCard({com, matchObj}) {
         <p className="text-danger text-center"><span className='fw-bolder'>{com.username}</span> : {com.comment}</p>
         <div>
           {displaybtns}  
-  </div>
-        </div>
+      </div>
+   </div>
   )
 }
 

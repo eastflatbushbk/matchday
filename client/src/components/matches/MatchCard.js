@@ -11,7 +11,7 @@ function MatchCard({match}) {
          <h3 className="text-success col-md-3 text-start fw-bolder"> Game - {match.game} </h3>
          <div className="col-md-2"></div>
         
-         <h5 className='col-md-3 text-end' ><span class="fs-6">posted by:</span> {match.author.username}</h5>
+         <h5 className='col-md-3 text-end' ><span className="fs-6">posted by:</span> {match.author.username}</h5>
       </div>
 
       <div className="row">

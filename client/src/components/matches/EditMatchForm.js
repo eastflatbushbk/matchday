@@ -26,6 +26,7 @@ function EditMatchForm({rendering}) {
     const navigate = useNavigate();
     const location = useLocation();
     console.log(location.state)
+
      const id = location.state.id
         console.log(id)
 
@@ -54,9 +55,7 @@ function EditMatchForm({rendering}) {
     function handleChange (event){
         setModifiedMatch({
             ...modifiedMatch, [event.target.name]:event.target.value
-  
-            
-          })
+           })
     }
 
     const goBack = () => {
@@ -80,9 +79,10 @@ function EditMatchForm({rendering}) {
         .then(resp => {
            if (resp.ok) {
                 resp.json().then(editedMatch => {
-                    console.log(editedMatch)
                      patchMatch(editedMatch)
+                    
                      setModifiedMatch(defaultData)
+                    
                      navigate('/match')
                 })
            } else {
@@ -100,12 +100,15 @@ function EditMatchForm({rendering}) {
    
 <>
 
-     <input className="form-control form-control-lg" type="text" placeholder=".form-control-lg" aria-label=".form-control-lg example"></input>
- 
+    
+    <br/>
+    <br/>
     <div className="container-flex row  bg-secondary  justify-content-center">
          <div className="col-lg-4">
+         &nbsp;
         <form onSubmit={handleSubmit}>
                 <input className="form-control" type="text" value={modifiedMatch.game} name="game" onChange={handleChange} placeholder="Game #" aria-label="default input example"/>
+                &nbsp;
           <select className="form-select" value={modifiedMatch.home_team} name="home_team" onChange={handleChange} aria-label="Default select example">
              <option selected="">select home team</option>
              <option value="Arsenal">Arsenal</option>
@@ -129,8 +132,9 @@ function EditMatchForm({rendering}) {
              <option value="West Ham United">West Ham United</option>
              <option value="Wolverhampton Wanderers">Wolverhampton Wanderers</option>
            </select>
-     
+           &nbsp;
                 <input className="form-control" type="text" value={modifiedMatch.home_score} name="home_score" onChange={handleChange} placeholder="Home team score" aria-label="default input example"/>
+                &nbsp;
           <select className="form-select"  value={modifiedMatch.hometeam_img_url} name="hometeam_img_url" onChange={handleChange} aria-label="Default select example">
             <option selected="">select home team img url</option>
              <option value="http://sportslogohistory.com/wp-content/uploads/2020/04/Arsenal_2002-Pres-1-150x150.png">Arsenal</option>
@@ -154,7 +158,7 @@ function EditMatchForm({rendering}) {
             <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/west_ham_united-fc_1999-2016-150x150.png">West Ham United</option>
             <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/wolverhampton_wanderers_2002-pres-150x150.png">Wolverhampton Wanderers</option>
       </select>
-        
+      &nbsp;
     
     <select className="form-select"  value={modifiedMatch.away_team} name="away_team" onChange={handleChange} aria-label="Default select example">
       <option selected="">select away team</option>
@@ -179,8 +183,9 @@ function EditMatchForm({rendering}) {
        <option value="West Ham United">West Ham United</option>
        <option value="Wolverhampton Wanderers">Wolverhampton Wanderers</option>
      </select>
+     &nbsp;
         <input className="form-control" type="text" value={modifiedMatch.away_score} name="away_score" onChange={handleChange} placeholder="away team score " aria-label="default input example"/>
-    
+        &nbsp;
      <select className="form-select" value={modifiedMatch.awayteam_img_url} name="awayteam_img_url" onChange={handleChange} aria-label="Default select example">
        <option selected="">select away team img url</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/04/Arsenal_2002-Pres-1-150x150.png">Arsenal</option>
@@ -204,10 +209,12 @@ function EditMatchForm({rendering}) {
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/west_ham_united-fc_1999-2016-150x150.png">West Ham United</option>
        <option value="http://sportslogohistory.com/wp-content/uploads/2020/05/wolverhampton_wanderers_2002-pres-150x150.png">Wolverhampton Wanderers</option>
       </select>
+      &nbsp;
+      <div>
     <button className="btn btn-primary" type="submit">submit</button>
     &nbsp;
     <button className="btn btn-primary" onClick={goBack} type="button">cancel</button>
-    
+    </div>
    </form>
    
   
