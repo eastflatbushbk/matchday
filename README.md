@@ -1,9 +1,8 @@
-# Project Template: React/Rails API
+# MatchDay Chat
 
 ## Description
 
-This project is scaffolded so that you can build a React frontend and Rails
-backend together, and easily deploy them to Render.
+MatchDay Chat is a web-based application that enables the user to post a Premiere league soccer match & discuss their opinions about the match
 
 **Note**: if you are not planning to deploy your app to Render and prefer to use
 SQLite, you will need to make the following changes in the project files:
