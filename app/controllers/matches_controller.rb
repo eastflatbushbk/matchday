@@ -2,12 +2,6 @@ class MatchesController < ApplicationController
     skip_before_action :confirm_authentication, only: [:index, :show, :create]
     before_action :find_match, only: [:update, :destroy]
 
-    
-    
-    def top_winning_teams
-    
-    end
-
        
     def index
        render json: Match.all, status: :ok
@@ -30,7 +24,6 @@ class MatchesController < ApplicationController
 
     def destroy       
         @match.destroy!
-        # head :no_content
         render json: @match        
     end
 

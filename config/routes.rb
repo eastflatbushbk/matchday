@@ -6,12 +6,17 @@ Rails.application.routes.draw do
 
   resources :opinions, only: [:index, :show, :create, :update, :destroy]
   resources :users, only: [:show, :create]
-  
+
+  get "/me", to: "users#show"
+  post "/login", to: "sessions#create"
+  delete "/logout", to: "sessions#destroy"
+
+end
+
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
   # get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
-  #  get '/matches/:match_id/opinions', to: 'matches#match_opinions'
 
   # ROUTING PARAMETERS
 # The params hash will always contain the :controller and :action keys, but you should use the methods
@@ -23,11 +28,4 @@ Rails.application.routes.draw do
 #   When this route is used, params[:foo] will also be set to “bar”, as if it were passed in the query string.
 #   Your controller will also receive params[:action] as “index” and params[:controller] as “clients”.
 
-  get "/me", to: "users#show"
-  post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
  
- 
- 
- 
-end
