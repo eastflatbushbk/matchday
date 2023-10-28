@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   resources :matches do   
     resources :opinions, only: [:index, :show]
   end
+  
+# get "/opinions/:search" , to: "opinions#search"
 
   resources :opinions, only: [:index, :show, :create, :update, :destroy]
   resources :users, only: [:show, :create]
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-
+  
 end
 
   # Routing logic: fallback requests for React Router.

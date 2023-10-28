@@ -1,6 +1,13 @@
 class OpinionsController < ApplicationController
-    skip_before_action :confirm_authentication, only: [:index, :show, :create]
+    skip_before_action :confirm_authentication, only: [:index, :show, :create, :search]
     before_action :find_opinion, only: [:update, :destroy]
+
+    def search
+
+        opinion = Opinion.where("comment Like ?" , "%" + params[:search] + "%")
+        render json: opinion
+    
+    end
     
     
     def index
